@@ -12,7 +12,7 @@
   <!-- Google Font (open source-ish) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
   <!-- Vega + Vega-Lite + Vega-Embed (all open source) -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
@@ -259,8 +259,8 @@
     <h1>The Loop Clothing Exchange · 2025 Usage & Sustainability Story</h1>
     <p class="subtitle">
       This dashboard visualizes every recorded visit to <strong>The Loop Clothing Exchange</strong> on GW’s Mount Vernon Campus
-      from January–October 2025. It highlights what items students actually take, when they visit, and how donation behavior
-      shapes the circular flow of campus fashion.
+      from January–October 2025. It shows what items students actually take, when they visit, and how donation behavior
+      shapes this sustainability platform.
     </p>
     <div class="highlight-stat-row" aria-label="Summary statistics">
       <div class="stat-card">
@@ -302,9 +302,10 @@
     </p>
     <div class="chart-card">
       <figure aria-describedby="popularity-caption">
-        <div id="chart-popularity" class="chart-container"></div>
+        <div id="chart-popularity" class="chart-container" role="img"
+             aria-label="Bar chart ranking clothing categories by the total number of items taken across all visits."></div>
         <figcaption id="popularity-caption">
-          Bar chart showing the total number of items taken in each clothing category across all 2025 visits.
+          Bar chart showing the total number of items taken in each clothing category across 2025 visits.
           Higher bars indicate higher demand, guiding donation campaigns and inventory planning.
         </figcaption>
       </figure>
@@ -323,14 +324,15 @@
     </div>
     <p class="section-description">
       Foot traffic varies across the semester as move-in, weather, and campus events change clothing needs.
-      The line chart below shows how many visits were recorded each month.
+      The area chart below shows how many visits were recorded each month, from move-in through midterms and beyond.
     </p>
     <div class="chart-card">
       <figure aria-describedby="time-caption">
-        <div id="chart-time" class="chart-container"></div>
+        <div id="chart-time" class="chart-container" role="img"
+             aria-label="Area chart showing the number of Loop visits per month from January to October 2025."></div>
         <figcaption id="time-caption">
-          Line chart showing the number of visits per month. Peaks suggest key moments in the semester when The Loop
-          is especially important to students.
+          Area chart showing the number of visits per month. Peaks suggest key moments in the semester when The Loop
+          becomes especially important to students, like early-term wardrobe building.
         </figcaption>
       </figure>
     </div>
@@ -353,7 +355,8 @@
     </p>
     <div class="chart-card">
       <figure aria-describedby="heatmap-caption">
-        <div id="chart-heatmap" class="chart-container"></div>
+        <div id="chart-heatmap" class="chart-container" role="img"
+             aria-label="Heatmap showing the total number of items taken by clothing category and demographic group."></div>
         <figcaption id="heatmap-caption">
           Heatmap showing total items taken by clothing category and demographic group. Darker cells indicate greater
           item flow for that combination, helping identify who benefits most from specific types of clothing.
@@ -374,17 +377,36 @@
     </div>
     <p class="section-description">
       Circular fashion only works when community members both contribute and reuse items.
-      The stacked bars below track visits over time and show how often visitors reported bringing donations with them.
+      The stacked bars below track visits over time and show how often visitors reported bringing donations with them
+      or using the blue donation bin on the Quad, compared with visits where people came only to take items.
     </p>
     <div class="chart-card">
       <figure aria-describedby="donations-caption">
-        <div id="chart-donations" class="chart-container"></div>
+        <div id="chart-donations" class="chart-container" role="img"
+             aria-label="Stacked bar chart showing monthly Loop visits, split by whether visitors brought donations, used the blue bin, or did not donate."></div>
         <figcaption id="donations-caption">
-          Stacked bar chart showing the number of visits per month, separated by whether visitors reported bringing donations.
-          This illustrates how donation behavior supports the supply of items throughout the year.
+          Stacked bar chart showing the number of visits per month, separated by whether visitors reported bringing donations
+          or using the blue donation bin. This illustrates how donation behavior supports the supply of items throughout the year.
         </figcaption>
       </figure>
     </div>
+  </section>
+
+  <!-- Conclusion section -->
+  <section aria-labelledby="section-conclusion-title">
+    <div class="section-header">
+      <div>
+        <div class="section-kicker">Closing reflections</div>
+        <h2 class="section-title" id="section-conclusion-title">
+          What this reveals about The Loop
+        </h2>
+      </div>
+    </div>
+    <p class="section-description">
+      The Loop is more than a free closet: it is a stable, student-powered circulation system
+      that redirects hundreds of items away from landfills while meeting real, everyday needs on campus.
+      The patterns suggest clear levers (like targeted category donations and donation drives in peak months) to grow its impact even further.
+    </p>
   </section>
 
   <footer>
@@ -397,7 +419,7 @@
       </div>
     </div>
     <div>
-      <div>AI usage: Visualization structure and code scaffold generated with a generative AI assistant and reviewed/curated by the author.</div>
+      <div>AI usage acknowledgement: Visualization structure and code scaffold generated with ChatGPT-5 and reviewed/curated by the author, Deeksha Ravi.</div>
     </div>
   </footer>
 </main>
@@ -445,7 +467,8 @@
         field: "TotalItems",
         type: "quantitative",
         title: "Total items taken",
-        axis: { grid: true }
+        axis: { grid: true },
+        scale: { zero: true }
       },
       y: {
         field: "Category",
@@ -480,14 +503,16 @@
 
   vegaEmbed("#chart-popularity", popularitySpec, { actions: false });
 
-  // ---------- Chart 2: Visits over time (monthly line) ----------
+  // ---------- Chart 2: Visits over time (monthly area chart) ----------
   const timeSpec = {
     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-    description: "Monthly visit counts.",
+    description: "Monthly visit counts as area chart.",
     data: { url: dataUrl },
     mark: {
-      type: "line",
-      point: { filled: true, size: 50 }
+      type: "area",
+      line: { color: "#22c55e", strokeWidth: 2 },
+      point: { filled: true, size: 40, color: "#22c55e" },
+      opacity: 0.4
     },
     encoding: {
       x: {
@@ -501,7 +526,8 @@
         aggregate: "count",
         type: "quantitative",
         title: "Number of visits",
-        axis: { grid: true }
+        axis: { grid: true },
+        scale: { zero: true }
       },
       color: {
         value: "#22c55e"
@@ -605,15 +631,27 @@
       y: {
         aggregate: "count",
         type: "quantitative",
-        title: "Number of visits"
+        title: "Number of visits",
+        scale: { zero: true }
       },
       color: {
         field: "Did you bring donations with you today?",
         type: "nominal",
         title: "Brought donations?",
+        // High-contrast mapping so behaviors are clearly distinct
         scale: {
-          range: ["#22c55e", "#38bdf8"]  // Yes / No
-        }
+          domain: [
+            "Yes",
+            "Donated at the blue bin on the Quad",
+            "No"
+          ],
+          range: [
+            "#22c55e",  // Yes – bright green
+            "#f97316",  // Blue bin – vivid orange
+            "#38bdf8"   // No – bright blue
+          ]
+        },
+        sort: ["Yes", "Donated at the blue bin on the Quad", "No"]
       },
       tooltip: [
         {
