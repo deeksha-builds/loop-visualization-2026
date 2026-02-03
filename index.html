@@ -634,25 +634,25 @@
         title: "Number of visits",
         scale: { zero: true }
       },
-      color: {
-        field: "Did you bring donations with you today?",
-        type: "nominal",
-        title: "Brought donations?",
-        // High-contrast mapping so behaviors are clearly distinct
-        scale: {
-          domain: [
-            "Yes",
-            "Donated at the blue bin on the Quad",
-            "No"
-          ],
-          range: [
-            "#22c55e",  // Yes – bright green
-            "#f97316",  // Blue bin – vivid orange
-            "#38bdf8"   // No – bright blue
-          ]
-        },
-        sort: ["Yes", "Donated at the blue bin on the Quad", "No"]
-      },
+color: {
+  field: "Did you bring donations with you today?",
+  type: "nominal",
+  title: "Brought donations?",
+  scale: {
+    domain: [
+      "Yes",
+      "Donated at blue bin",
+      "No"
+    ],
+    range: [
+      "#22c55e",  // Yes – bright green
+      "#f97316",  // Donated at blue bin – vivid orange
+      "#38bdf8"   // No – bright blue
+    ]
+  },
+  sort: ["Yes", "Donated at blue bin", "No"]
+},
+
       tooltip: [
         {
           field: "Visit Date",
